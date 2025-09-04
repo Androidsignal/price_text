@@ -5,7 +5,7 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [0.0.1] - (2025-Sep-03)
+## [0.0.1] - (2025-Sep-04)
 
 - Initial release of price_text.
 - Provides a reusable PriceText widget for displaying currency amounts.
