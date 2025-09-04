@@ -1,8 +1,8 @@
 name: price_text
 description: "A customizable Price Text for Flutter apps."
-homepage:
-repository:
-issue_tracker:
+homepage: https://github.com/Androidsignal/price_text/blob/main/example/lib/main.dart
+repository: https://github.com/Androidsignal/price_text
+issue_tracker: https://github.com/Androidsignal/price_text/issues
 version: 0.0.1
 
 
