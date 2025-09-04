@@ -5,6 +5,15 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [0.0.2] - (2025-Sep-04)
+
+- Improved documentation for `CurrencyType` and `PriceText`.
+- Expanded pubspec description (50–180 chars).
+- Added support for custom flag alignment (`left` or `right`).
+- Added `flagSpacing` and `contryCodeSpacing` customization.
+- Formatted all Dart files with `dart format` to pass analyzer.
+
+
 ## [0.0.1] - (2025-Sep-04)
 
 - Initial release of price_text.
