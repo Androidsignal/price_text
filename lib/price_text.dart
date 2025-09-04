@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:price_text/currency_type.dart';
 
+/// Alignment options for positioning the flag in [PriceText].
 enum AlignmentOption { left, right }
 
 class PriceText extends StatelessWidget {
