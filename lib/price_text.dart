@@ -55,7 +55,8 @@ class PriceText extends StatelessWidget {
     String formatted;
     if (avoidCurrencyFormat) {
       formatted = amount.toString();
-      if (currencyType.currencySymbol != null && currencyType.currencySymbol!.isNotEmpty) {
+      if (currencyType.currencySymbol != null &&
+          currencyType.currencySymbol!.isNotEmpty) {
         formatted = "${currencyType.currencySymbol}$formatted";
       }
     } else {
@@ -82,20 +83,35 @@ class PriceText extends StatelessWidget {
       if (customFlagWidget != null) {
         flagWidget = customFlagWidget!;
       } else if (currencyType.flag != null) {
-        flagWidget = Text(currencyType.flag!, style: const TextStyle(fontSize: 24));
+        flagWidget = Text(
+          currencyType.flag!,
+          style: const TextStyle(fontSize: 24),
+        );
       }
     }
 
     ///  Currency code
     final currencyCodeWidget = Text(
       currencyCodeText ?? (currencyType.currencyCode ?? ''),
-      style: (currencyCodeTextStyle ?? const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black)),
+      style:
+          (currencyCodeTextStyle ??
+          const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
+          )),
     );
 
     ///  Amount
     final amountWidget = Text(
       formatted,
-      style: (amountTextStyle ?? TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: valueColor)),
+      style:
+          (amountTextStyle ??
+          TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: valueColor,
+          )),
     );
 
     /// Right side = code + amount
@@ -112,8 +128,16 @@ class PriceText extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: flagAlignment == AlignmentOption.left
-          ? [if (showFlag) flagWidget, if (showFlag) SizedBox(width: flagSpacing), rightSide]
-          : [rightSide, if (showFlag) SizedBox(width: flagSpacing), if (showFlag) flagWidget],
+          ? [
+              if (showFlag) flagWidget,
+              if (showFlag) SizedBox(width: flagSpacing),
+              rightSide,
+            ]
+          : [
+              rightSide,
+              if (showFlag) SizedBox(width: flagSpacing),
+              if (showFlag) flagWidget,
+            ],
     );
   }
 }
