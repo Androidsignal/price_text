@@ -1,5 +1,5 @@
 name: price_text
-description: "A customizable Price Text for Flutter apps."
+description: "A customizable Flutter widget to display prices with currency code,symbol, flag, and formatting. Supports multiple currencies with options for alignment, styling, and color customization."
 homepage: https://github.com/Androidsignal/price_text/blob/main/example/lib/main.dart
 repository: https://github.com/Androidsignal/price_text
 issue_tracker: https://github.com/Androidsignal/price_text/issues
