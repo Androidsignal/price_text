@@ -3,7 +3,7 @@ description: "Show prices in Flutter apps with currency symbols, codes, and flag
 homepage: https://github.com/Androidsignal/price_text/blob/main/example/lib/main.dart
 repository: https://github.com/Androidsignal/price_text
 issue_tracker: https://github.com/Androidsignal/price_text/issues
-version: 0.0.2
+version: 0.0.3
 
 
 # The following defines the version and build number for your application.
