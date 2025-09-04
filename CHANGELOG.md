@@ -4,6 +4,10 @@ All notable changes to the **price_text** package will be documented in this fil
 This project follows [Semantic Versioning](https://semver.org/).
 
 ---
+## [0.0.4] - (2025-Sep-04)
+
+- Updated issue tracker link.
+
 ## [0.0.3] - (2025-Sep-04)
 
 - Improved documentation for `PriceText`.
