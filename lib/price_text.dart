@@ -73,10 +73,10 @@ class PriceText extends StatelessWidget {
     final Color valueColor = amountColorStyle != null
         ? amountColorStyle!(amount)
         : (amount > 0
-              ? Colors.green
-              : amount < 0
-              ? Colors.red
-              : Colors.grey);
+            ? Colors.green
+            : amount < 0
+                ? Colors.red
+                : Colors.grey);
 
     /// Flag assets widget
     Widget flagWidget = const SizedBox.shrink();
@@ -94,8 +94,7 @@ class PriceText extends StatelessWidget {
     ///  Currency code
     final currencyCodeWidget = Text(
       currencyCodeText ?? (currencyType.currencyCode ?? ''),
-      style:
-          (currencyCodeTextStyle ??
+      style: (currencyCodeTextStyle ??
           const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w500,
@@ -106,8 +105,7 @@ class PriceText extends StatelessWidget {
     ///  Amount
     final amountWidget = Text(
       formatted,
-      style:
-          (amountTextStyle ??
+      style: (amountTextStyle ??
           TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,

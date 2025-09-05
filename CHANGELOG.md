@@ -4,6 +4,11 @@ All notable changes to the **price_text** package will be documented in this fil
 This project follows [Semantic Versioning](https://semver.org/).
 
 ---
+## [0.0.5] - (2025-Sep-04)
+
+- Lowered Dart SDK constraint from `>=>=3.9.0 <4.0.0` to `>=3.0.0 <4.0.0` for broader compatibility.
+- This update allows projects using Dart 3.8.x to integrate `price_text` without requiring a Flutter/Dart upgrade.
+
 ## [0.0.4] - (2025-Sep-04)
 
 - Updated issue tracker link.
