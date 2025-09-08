@@ -4,6 +4,13 @@ All notable changes to the **price_text** package will be documented in this fil
 This project follows [Semantic Versioning](https://semver.org/).
 
 ---
+## [0.0.6] - (2025-Sep-08)
+
+- Support for multiple currency locales.
+- `locale` property for controlling number formatting regionally.
+- Optional `formatterPattern` property to allow custom number formatting.
+- Updated documentation for `PriceText` usage and locale support.
+
 ## [0.0.5] - (2025-Sep-04)
 
 - Lowered Dart SDK constraint from `>=>=3.9.0 <4.0.0` to `>=3.0.0 <4.0.0` for broader compatibility.

@@ -2,36 +2,70 @@ import 'package:flutter/material.dart';
 import 'package:price_text/currency_type.dart';
 
 /// Alignment options for positioning the flag in [PriceText].
-enum AlignmentOption { left, right }
+enum AlignmentOption {
+  /// Place the flag to the left of the amount and currency code.
+  left,
 
+  /// Place the flag to the right of the amount and currency code.
+  right
+}
+
+/// A widget to display a formatted price with various customization options.
+///
+/// Supports currency symbols, country flags, currency codes, custom styling,
+/// color for positive/negative/zero amounts, locale formatting, and custom patterns.
 class PriceText extends StatelessWidget {
+  /// The currency type to display (e.g., USD, INR).
   final CurrencyType currencyType;
+
+  /// The numerical amount to display.
   final num amount;
 
-  // Text styles
+  /// Optional custom text for the currency code.
   final String? currencyCodeText;
+
+  /// Text style for the currency code.
   final TextStyle? currencyCodeTextStyle;
+
+  /// Text style for the amount.
   final TextStyle? amountTextStyle;
 
-  // Show/hide options
+  /// Whether to show the country flag.
   final bool showFlag;
+
+  /// Whether to show the currency code.
   final bool showCurrencyCode;
+
+  /// Whether to hide the currency symbol.
   final bool hideCurrencySymbol;
+
+  /// Whether to avoid default currency formatting.
   final bool avoidCurrencyFormat;
 
-  // Flag customization
+  /// Optional custom widget to use as the flag.
   final Widget? customFlagWidget;
 
-  // Alignment
+  /// Alignment of the flag relative to the amount.
   final AlignmentOption flagAlignment;
 
-  // Spacing options
+  /// Spacing between the flag and the currency code/amount.
   final double flagSpacing;
+
+  /// Spacing between the currency code and amount.
   final double contryCodeSpacing;
 
-  /// Custom color resolver
+  /// Optional locale string for regional number formatting (e.g., "en_US").
+  final String? locale;
+
+  /// Optional custom formatter pattern (e.g., "#,##0.00").
+  final String? formatterPattern;
+
+  /// Custom function to determine the color of the amount based on its value.
   final Color Function(num amount)? amountColorStyle;
 
+  /// Creates a [PriceText] widget.
+  ///
+  /// [currencyType] and [amount] are required. Other parameters are optional.
   const PriceText({
     super.key,
     required this.currencyType,
@@ -48,28 +82,29 @@ class PriceText extends StatelessWidget {
     this.flagSpacing = 6,
     this.contryCodeSpacing = 6,
     this.amountColorStyle,
+    this.locale,
+    this.formatterPattern,
   });
 
   @override
   Widget build(BuildContext context) {
-    /// Format amount
+    /// Format amount string
     String formatted;
     if (avoidCurrencyFormat) {
       formatted = amount.toString();
-      if (currencyType.currencySymbol != null &&
-          currencyType.currencySymbol!.isNotEmpty) {
+      if (!hideCurrencySymbol && currencyType.currencySymbol != null) {
         formatted = "${currencyType.currencySymbol}$formatted";
       }
     } else {
-      formatted = currencyType.formatCurrency(amount);
+      formatted = currencyType.formatCurrency(
+        amount,
+        withSymbol: !hideCurrencySymbol,
+        customLocale: locale,
+        customPattern: formatterPattern,
+      );
     }
 
-    /// Remove symbol if disabled
-    if (hideCurrencySymbol && currencyType.currencySymbol != null) {
-      formatted = formatted.replaceAll(currencyType.currencySymbol!, "").trim();
-    }
-
-    /// Decide color based on amount and custom style
+    /// Decide color for the amount
     final Color valueColor = amountColorStyle != null
         ? amountColorStyle!(amount)
         : (amount > 0
@@ -78,42 +113,42 @@ class PriceText extends StatelessWidget {
                 ? Colors.red
                 : Colors.grey);
 
-    /// Flag assets widget
+    /// Build flag widget
     Widget flagWidget = const SizedBox.shrink();
     if (showFlag) {
       if (customFlagWidget != null) {
         flagWidget = customFlagWidget!;
-      } else if (currencyType.flag != null) {
+      } else {
         flagWidget = Text(
-          currencyType.flag!,
+          currencyType.flag ?? '',
           style: const TextStyle(fontSize: 24),
         );
       }
     }
 
-    ///  Currency code
+    /// Currency code widget
     final currencyCodeWidget = Text(
       currencyCodeText ?? (currencyType.currencyCode ?? ''),
-      style: (currencyCodeTextStyle ??
+      style: currencyCodeTextStyle ??
           const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w500,
             color: Colors.black,
-          )),
+          ),
     );
 
-    ///  Amount
+    /// Amount widget
     final amountWidget = Text(
       formatted,
-      style: (amountTextStyle ??
+      style: amountTextStyle ??
           TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: valueColor,
-          )),
+          ),
     );
 
-    /// Right side = code + amount
+    /// Row containing currency code and amount
     final rightSide = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -123,7 +158,7 @@ class PriceText extends StatelessWidget {
       ],
     );
 
-    /// Final layout for alignment
+    /// Final layout
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: flagAlignment == AlignmentOption.left

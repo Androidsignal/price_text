@@ -1,9 +1,6 @@
 import 'package:intl/intl.dart';
 
-/// A model class representing a currency type.
-///
-/// Provides currency code, symbol, and flag, and can format amounts
-/// according to the appropriate locale.
+///  A model class representing a currency type
 class CurrencyType {
   /// The 3-letter ISO currency code (e.g., "USD", "INR").
   final String? currencyCode;
@@ -18,13 +15,24 @@ class CurrencyType {
   /// [currencySymbol], and [flag].
   const CurrencyType({this.currencyCode, this.currencySymbol, this.flag});
 
-  /// Formats the given [amount] using the currency's locale and symbol.
+  /// Formats a given [amount] according to locale OR custom options.
   ///
   /// Example:
   /// ```dart
-  /// CurrencyType.USD.formatCurrency(1234.56); // $1,234.56
+  /// CurrencyType.INR.formatCurrency(1234.56);        // ₹1,234.56
+  /// CurrencyType.USD.formatCurrency(1234.56, withSymbol: false); // 1,234.56
   /// ```
-  String formatCurrency(num amount) {
+  String formatCurrency(
+    num amount, {
+    bool withSymbol = true,
+    bool withGrouping = true,
+    int decimalDigits = 2,
+    String? customSymbol,
+    String? customLocale,
+    String? customPattern, // e.g., "#,##0.00"
+    String? decimalSeparator,
+    String? groupingSeparator,
+  }) {
     final localeMap = {
       "INR": "en_IN",
       "USD": "en_US",
@@ -41,106 +49,131 @@ class CurrencyType {
       "TRY": "tr_TR",
     };
 
-    final format = NumberFormat.currency(
-      locale: localeMap[currencyCode] ?? "en_US",
-      symbol: currencySymbol,
-    );
+    final locale = customLocale ?? localeMap[currencyCode] ?? "en_US";
 
-    return format.format(amount);
+    NumberFormat format;
+
+    if (customPattern != null) {
+      // Use custom pattern, no symbol automatically
+      format = NumberFormat(customPattern, locale);
+    } else if (!withSymbol) {
+      // No symbol → use NumberFormat with simple decimal pattern
+      format = NumberFormat.currency(
+        locale: locale,
+        symbol: '',
+        decimalDigits: decimalDigits,
+      );
+    } else {
+      // Default formatting with symbol
+      format = NumberFormat.currency(
+        locale: locale,
+        symbol: customSymbol ?? currencySymbol,
+        decimalDigits: decimalDigits,
+      );
+    }
+
+    // Format the number
+    String result = withGrouping
+        ? format.format(amount)
+        : amount.toStringAsFixed(decimalDigits);
+
+    // Override separators if provided
+    if (decimalSeparator != null) {
+      result = result.replaceAll(format.symbols.DECIMAL_SEP, decimalSeparator);
+    }
+    if (groupingSeparator != null) {
+      result = result.replaceAll(format.symbols.GROUP_SEP, groupingSeparator);
+    }
+
+    // Manually prepend symbol if needed (for custom pattern or withGrouping = false)
+    if (withSymbol && (customPattern != null || !withGrouping)) {
+      result = "${customSymbol ?? currencySymbol}$result";
+    }
+
+    return result;
   }
 
-  /// United States Dollar.
+  /// --- Currency Constants ---
+
   static const USD = CurrencyType(
     currencyCode: "USD",
     currencySymbol: "\$",
     flag: "🇺🇸",
   );
 
-  /// Euro.
   static const EUR = CurrencyType(
     currencyCode: "EUR",
     currencySymbol: "€",
     flag: "🇪🇺",
   );
 
-  /// British Pound Sterling.
   static const GBP = CurrencyType(
     currencyCode: "GBP",
     currencySymbol: "£",
     flag: "🇬🇧",
   );
 
-  /// Indian Rupee.
   static const INR = CurrencyType(
     currencyCode: "INR",
     currencySymbol: "₹",
     flag: "🇮🇳",
   );
 
-  /// Japanese Yen.
   static const JPY = CurrencyType(
     currencyCode: "JPY",
     currencySymbol: "¥",
     flag: "🇯🇵",
   );
 
-  /// Australian Dollar.
   static const AUD = CurrencyType(
     currencyCode: "AUD",
-    currencySymbol: "A\$",
+    currencySymbol: "\$",
     flag: "🇦🇺",
   );
 
-  /// Canadian Dollar.
   static const CAD = CurrencyType(
     currencyCode: "CAD",
     currencySymbol: "C\$",
     flag: "🇨🇦",
   );
 
-  /// Chinese Yuan.
   static const CNY = CurrencyType(
     currencyCode: "CNY",
     currencySymbol: "¥",
     flag: "🇨🇳",
   );
 
-  /// Singapore Dollar.
   static const SGD = CurrencyType(
     currencyCode: "SGD",
     currencySymbol: "S\$",
     flag: "🇸🇬",
   );
 
-  /// New Zealand Dollar.
   static const NZD = CurrencyType(
     currencyCode: "NZD",
     currencySymbol: "NZ\$",
     flag: "🇳🇿",
   );
 
-  /// Mexican Peso.
   static const MXN = CurrencyType(
     currencyCode: "MXN",
     currencySymbol: "\$",
     flag: "🇲🇽",
   );
 
-  /// South African Rand.
   static const ZAR = CurrencyType(
     currencyCode: "ZAR",
     currencySymbol: "R",
     flag: "🇿🇦",
   );
 
-  /// Turkish Lira.
   static const TRY = CurrencyType(
     currencyCode: "TRY",
     currencySymbol: "₺",
     flag: "🇹🇷",
   );
 
-  /// A list of all supported [CurrencyType]s.
+  /// All supported currencies
   static const all = [
     USD,
     EUR,
