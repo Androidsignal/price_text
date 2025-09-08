@@ -294,6 +294,6 @@ There are a bunch of things you can do if you want to contribute!
 The Contributor Guide has all the information you need for everything from reporting bugs to contributing new features.
   
 # Credits 
-price_text is owned and maintained by the Dashstack Infotech team (SURAT, INDIA).
+`price_text` is owned and maintained by the `Dashstack Infotech team (SURAT, INDIA)`.
 Follow us for updates and new releases 🚀.
 
