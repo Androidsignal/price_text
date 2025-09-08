@@ -222,6 +222,36 @@ PriceText(
     },
   ),
 ```
+
+### Use Currency locale for using formatting 
+The locale property allows you to set the regional formatting for your currency display.
+Supported locales:`INR → en_IN, USD → en_US, CAD → en_CA, EUR → en_IE, GBP → en_GB, JPY → ja_JP, AUD → en_AU, CNY → zh_CN, SGD → en_SG, NZD → en_NZ, MXN → es_MX, ZAR → en_ZA, TRY → tr_TR `
+
+![Screenshot_20250904-103055](https://github.com/user-attachments/assets/6e629c64-0a8c-4bdb-9c77-9121ef549620)
+
+```
+PriceText(
+  currencyType: CurrencyType.USD, //for currency type to be displayed
+  amount: 12345.67, //for amount to be displayed on screen 0 value to show grey color
+  locale: "en_US", //locale for formatting
+),
+```
+
+### Use Currency formatterPattern 
+The formatterPattern property lets you customize the number format of the amount.
+
+![Screenshot_20250904-103055](https://github.com/user-attachments/assets/d6177bc4-e260-4d48-8f6d-f641b4dd448e)
+
+```
+PriceText(
+  currencyType: CurrencyType.USD, //for currency type to be displayed
+  amount: 12345.67, //for amount to be displayed on screen 0 value to show grey color
+  locale: "en_US", //locale for formatting
+  formatterPattern: '#,##0.0', //custom pattern for formatting
+),
+```
+
+
 ## All Code Customization Options  :
 
 ### Basic Options
@@ -257,6 +287,8 @@ PriceText(
  PriceText(
   /// Supported Currencies: USD, EUR, GBP, INR, JPY, AUD, CAD, CNY, SGD, NZD, MXN, ZAR, TRY
   currencyType: CurrencyType.AUD, //for currency type to be displayed
+  locale: "en_AU", //locale for formatting
+  formatterPattern: '#,##0.00', //custom pattern for formatting
   amount: 2000, //for amount to be displayed on screen 0 value to show grey color
   showFlag: true, //to show flag of the country
   showCurrencyCode: true, //to show currency code
