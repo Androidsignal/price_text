@@ -56,31 +56,40 @@ You just need to add the widget with an amount and currency type, and it will ha
 
 ### Without any customization:
 
-![Screenshot_20250904-094232](https://github.com/user-attachments/assets/55cea8e4-3c4e-4cbb-886a-1c6c9c21b410)
+## 📸 Example
+|without Any Customization| Adding with formatterPattern |
+|-------------------|-----------------------------|
+| ![without formatterPattern](https://github.com/user-attachments/assets/982bcb8c-60d8-4a07-8285-c55159cf528b) | ![formatterPattern](https://github.com/user-attachments/assets/55cea8e4-3c4e-4cbb-886a-1c6c9c21b410)  |
 
 ```
  //Example usage of PriceText
   PriceText(
     currencyType: CurrencyType.USD, //for currency type to be displayed
     amount: 1000, //for amount to be displayed on screen using currency format
+    formatterPattern:'#,##0.00', //custom pattern for formatting amount(showing like second image)
   ),
 ```
 
 ### show flag :
 
-![Screenshot_20250904-095056](https://github.com/user-attachments/assets/5735a905-d6cb-42f6-80e9-6429cfe8eefa)
+|without Any Customization| Adding with formatterPattern |
+|-------------------|-----------------------------|
+| ![without formatterPattern](https://github.com/user-attachments/assets/c256c449-8108-4881-9303-4297fd63a748) | ![Screenshot_20250904-095056](https://github.com/user-attachments/assets/5735a905-d6cb-42f6-80e9-6429cfe8eefa) |
 
 ```
  PriceText(
    currencyType: CurrencyType.USD, //for currency type to be displayed
     amount: 1000, //for amount to be displayed on screen using currency format
      showFlag: true, //to show flag of the country
+     formatterPattern:'#,##0.00', //custom pattern for formatting amount(showing like second image)
   ),
 ```
 
 ### show showCurrencyCode :
 
-![Screenshot_20250904-095515](https://github.com/user-attachments/assets/92ed2052-79a2-4b57-b8a9-4ff9027c35ac)
+|without Any Customization| Adding with formatterPattern |
+|-------------------|-----------------------------|
+| ![without formatterPattern](https://github.com/user-attachments/assets/2dd0e90c-6831-4514-84d3-b72d0bc20aad) | ![Screenshot_20250904-095515](https://github.com/user-attachments/assets/92ed2052-79a2-4b57-b8a9-4ff9027c35ac) |
 
 ```
  PriceText(
@@ -110,6 +119,10 @@ PriceText(
 |----------------------|------------|
 | ![flag_left](https://github.com/user-attachments/assets/646c0d19-b1e2-450a-842e-db98069ff77f) | ![flag_right](https://github.com/user-attachments/assets/2888ea5f-0e72-4887-a7c4-8c56d9bfcde7) |
 
+| Flag Left (default) | Flag Right |
+|----------------------|------------|
+| ![flag_right](https://github.com/user-attachments/assets/3f8db4c6-1c0c-4f1c-a958-f59eb7a2466c) | ![flag_left](https://github.com/user-attachments/assets/e5577046-9cd9-4211-946b-484f4c977bce) |
+
 ```
 PriceText(
   currencyType: CurrencyType.USD, //for currency type to be displayed
@@ -123,7 +136,10 @@ PriceText(
 
 ### customize flag using image assets :
 
-![Screenshot_20250904-103055](https://github.com/user-attachments/assets/c346fedb-6cbb-4743-a1a7-ac2b465b8e14)
+| customize flag using image assets  | without currency format |
+|----------------------|------------|
+| ![Screenshot_20250904-103055](https://github.com/user-attachments/assets/c346fedb-6cbb-4743-a1a7-ac2b465b8e14) | ![flag_left](https://github.com/user-attachments/assets/4ca98547-65d2-4087-88b7-2c6fa12b71bb) |
+
 
 ```
   PriceText(
@@ -142,7 +158,9 @@ PriceText(
 ```
 ### hide Currency symbol :
 
-![Screenshot_20250904-102604](https://github.com/user-attachments/assets/a2e6c815-5c65-47a8-bdac-ce2833c2fb33)
+| Hide Currency Symbol | |
+|---------------------|---------------------|
+| ![Screenshot_20250904-102604](https://github.com/user-attachments/assets/a2e6c815-5c65-47a8-bdac-ce2833c2fb33) | ![flag_left](https://github.com/user-attachments/assets/72bdfc6a-c124-416b-9ae1-b6838a365c63) |
 
 ```
     PriceText(
@@ -153,24 +171,16 @@ PriceText(
       hideCurrencySymbol: true, //to hide currency symbol like $, ₹ etc
     ),
 ```
-### avoid Currency format :
 
-![Screenshot_20250904-103055](https://github.com/user-attachments/assets/fe01cd71-628e-4e19-99ed-14f41e30d8ab)
-
-```
-  PriceText(
-    currencyType: CurrencyType.AUD, //for currency type to be displayed
-    amount: 1000, //for amount to be displayed on screen using currency format
-    showFlag: true, //to show flag of the country
-    showCurrencyCode: true, //to show currency code
-    avoidCurrencyFormat: true,//to avoid currency format like : 1,000.00 and show 1000 without formatting  
-  ),
-```
 ### positive and negative value changes color Bydefault :
 
 | Colors (Positive value) | Colors (Negative value) | Colors (Zero value) |
 |-------------------|-------------------|---------------|
 | ![positive](https://github.com/user-attachments/assets/fe01cd71-628e-4e19-99ed-14f41e30d8ab) | ![negative](https://github.com/user-attachments/assets/d90302b3-8c84-4187-8f60-13231416f9f3) | ![zero](https://github.com/user-attachments/assets/e04ea1ae-9d11-4908-aded-d9a94a478b14) |
+
+| Colors (Positive value) | Colors (Negative value) | Colors (Zero value) |
+|-------------------|-------------------|---------------|
+| ![positive](https://github.com/user-attachments/assets/d580fc93-f8f6-47e0-b545-01e50f336ff8) | ![negative](https://github.com/user-attachments/assets/247ca60f-a7c2-456d-b150-96af3b3e59be) | ![zero](https://github.com/user-attachments/assets/b90cfe41-99ad-4fef-a6c6-5e8f54232920) |
 
 ```
 /// show nagative red color default 
@@ -203,6 +213,10 @@ PriceText(
 |-------------------|-------------------|---------------|
 | ![positive](https://github.com/user-attachments/assets/2b369f5a-3c5e-4cc6-a3ac-b1894ddca700) | ![negative](https://github.com/user-attachments/assets/501a9b57-43e1-46fd-8a6b-380d46ee1582) | ![zero](https://github.com/user-attachments/assets/ea2dae6b-ef1f-4428-a8e5-743d01cbe833) |
 
+| Colors (Positive value) | Colors (Negative value) | Colors (Zero value) |
+|-------------------|-------------------|---------------|
+| ![positive](https://github.com/user-attachments/assets/f0145f88-36ed-438b-9f14-9b70d02904a8) | ![negative](https://github.com/user-attachments/assets/5ca016d6-5f76-4922-b1fb-c710fce40b5a) | ![zero](https://github.com/user-attachments/assets/98330a4e-0e2f-483d-beb7-ad3615928d1b) |
+
 ```
 /// changes text color according amountColorStyle
 PriceText(
@@ -227,20 +241,26 @@ PriceText(
 The locale property allows you to set the regional formatting for your currency display.
 Supported locales:`INR → en_IN, USD → en_US, CAD → en_CA, EUR → en_IE, GBP → en_GB, JPY → ja_JP, AUD → en_AU, CNY → zh_CN, SGD → en_SG, NZD → en_NZ, MXN → es_MX, ZAR → en_ZA, TRY → tr_TR `
 
-![Screenshot_20250904-103055](https://github.com/user-attachments/assets/6e629c64-0a8c-4bdb-9c77-9121ef549620)
+|Currency locale formatting |  |
+|-------------------|-----------------------------|
+| ![Screenshot_20250904-103055](https://github.com/user-attachments/assets/6e629c64-0a8c-4bdb-9c77-9121ef549620) | ![Screenshot_20250904-095515](https://github.com/user-attachments/assets/a97e89ef-5b9d-491c-9e8c-fb2136cae399) |
 
 ```
 PriceText(
   currencyType: CurrencyType.USD, //for currency type to be displayed
   amount: 12345.67, //for amount to be displayed on screen 0 value to show grey color
   locale: "en_US", //locale for formatting
+  usePatternWithTextSpan: true, // to use pattern with TextSpan
+  formatterPattern: '#,##0.0', //custom pattern for formatting
 ),
 ```
 
 ### Use Currency formatterPattern 
 The formatterPattern property lets you customize the number format of the amount.
 
-![Screenshot_20250904-103055](https://github.com/user-attachments/assets/d6177bc4-e260-4d48-8f6d-f641b4dd448e)
+|Currency locale formatting |  |
+|-------------------|-----------------------------|
+| ![Screenshot_20250904-103055](https://github.com/user-attachments/assets/d6177bc4-e260-4d48-8f6d-f641b4dd448e) | ![Screenshot_20251003-162652](https://github.com/user-attachments/assets/8fe00a5b-3002-411a-b565-2054e0ec67f3) |
 
 ```
 PriceText(
@@ -248,6 +268,7 @@ PriceText(
   amount: 12345.67, //for amount to be displayed on screen 0 value to show grey color
   locale: "en_US", //locale for formatting
   formatterPattern: '#,##0.0', //custom pattern for formatting
+  usePatternWithTextSpan: true, // to use pattern with TextSpan
 ),
 ```
 
@@ -311,7 +332,11 @@ PriceText(
   currencyCodeTextStyle: const TextStyle(fontSize: 22, fontWeight: FontWeight.w500), //custom text style for currency code
 ),
 ```
-![Screenshot_20250904-103055](https://github.com/user-attachments/assets/c346fedb-6cbb-4743-a1a7-ac2b465b8e14)
+
+| All Customization | |
+|---------------------|---------------------|
+| ![Screenshot_20250904-103055](https://github.com/user-attachments/assets/c346fedb-6cbb-4743-a1a7-ac2b465b8e14) | ![flag_left](https://github.com/user-attachments/assets/7b6a94e4-d7b1-4e22-8d8d-2c2c52a82bf2) |
+
 
 # Bugs and Feedback 
 We welcome and appreciate any suggestions you may have for improvement.
