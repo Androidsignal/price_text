@@ -23,16 +23,16 @@ class CurrencyType {
   /// CurrencyType.USD.formatCurrency(1234.56, withSymbol: false); // 1,234.56
   /// ```
   String formatCurrency(
-    num amount, {
-    bool withSymbol = true,
-    bool withGrouping = true,
-    int decimalDigits = 2,
-    String? customSymbol,
-    String? customLocale,
-    String? customPattern, // e.g., "#,##0.00"
-    String? decimalSeparator,
-    String? groupingSeparator,
-  }) {
+      num amount, {
+        bool withSymbol = true,
+        bool withGrouping = true,
+        int decimalDigits = 2,
+        String? customSymbol,
+        String? customLocale,
+        String? customPattern,
+        String? decimalSeparator,
+        String? groupingSeparator,
+      }) {
     final localeMap = {
       "INR": "en_IN",
       "USD": "en_US",
@@ -95,78 +95,92 @@ class CurrencyType {
 
   /// --- Currency Constants ---
 
+  /// US Dollar
   static const USD = CurrencyType(
     currencyCode: "USD",
     currencySymbol: "\$",
     flag: "🇺🇸",
   );
 
+
+  /// Euro
   static const EUR = CurrencyType(
     currencyCode: "EUR",
     currencySymbol: "€",
     flag: "🇪🇺",
   );
 
+  /// British Pound
   static const GBP = CurrencyType(
     currencyCode: "GBP",
     currencySymbol: "£",
     flag: "🇬🇧",
   );
 
+  /// Indian Rupee
   static const INR = CurrencyType(
     currencyCode: "INR",
     currencySymbol: "₹",
     flag: "🇮🇳",
   );
 
+  /// Japanese Yen
   static const JPY = CurrencyType(
     currencyCode: "JPY",
     currencySymbol: "¥",
     flag: "🇯🇵",
   );
 
+  /// Australian Dollar
   static const AUD = CurrencyType(
     currencyCode: "AUD",
     currencySymbol: "\$",
     flag: "🇦🇺",
   );
 
+  /// Canadian Dollar
   static const CAD = CurrencyType(
     currencyCode: "CAD",
     currencySymbol: "C\$",
     flag: "🇨🇦",
   );
 
+  /// Chinese Yuan
   static const CNY = CurrencyType(
     currencyCode: "CNY",
     currencySymbol: "¥",
     flag: "🇨🇳",
   );
 
+  /// Singapore Dollar
   static const SGD = CurrencyType(
     currencyCode: "SGD",
     currencySymbol: "S\$",
     flag: "🇸🇬",
   );
 
+  /// New Zealand Dollar
   static const NZD = CurrencyType(
     currencyCode: "NZD",
     currencySymbol: "NZ\$",
     flag: "🇳🇿",
   );
 
+  /// Mexican Peso
   static const MXN = CurrencyType(
     currencyCode: "MXN",
     currencySymbol: "\$",
     flag: "🇲🇽",
   );
 
+  /// South African Rand
   static const ZAR = CurrencyType(
     currencyCode: "ZAR",
     currencySymbol: "R",
     flag: "🇿🇦",
   );
 
+  /// Turkish Lira
   static const TRY = CurrencyType(
     currencyCode: "TRY",
     currencySymbol: "₺",

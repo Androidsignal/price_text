@@ -4,6 +4,14 @@ All notable changes to the **price_text** package will be documented in this fil
 This project follows [Semantic Versioning](https://semver.org/).
 
 ---
+## [0.0.7] - (2025-Oct-03)
+- **New Feature:** Introduced `usePatternWithTextSpan` parameter in `PriceText`.
+  - Allows you to render formatted currency amounts using `TextSpan` with custom pattern support.
+  - Useful for cases where you want to control integer and decimal styling separately (e.g.,like e-commerce price styles).
+- Added support for `formatterPattern` with `TextSpan` rendering.
+- `formatterPattern: "#,##0.00"` will respect number grouping while still allowing `TextSpan` styling.
+
+
 ## [0.0.6] - (2025-Sep-08)
 
 - Support for multiple currency locales.

@@ -39,8 +39,8 @@ class PriceText extends StatelessWidget {
   /// Whether to hide the currency symbol.
   final bool hideCurrencySymbol;
 
-  /// Whether to avoid default currency formatting.
-  final bool avoidCurrencyFormat;
+  ///  when true, formatterPattern will be parsed into TextSpan style
+  final bool usePatternWithTextSpan;
 
   /// Optional custom widget to use as the flag.
   final Widget? customFlagWidget;
@@ -76,79 +76,133 @@ class PriceText extends StatelessWidget {
     this.showFlag = false,
     this.showCurrencyCode = false,
     this.hideCurrencySymbol = false,
-    this.avoidCurrencyFormat = false,
+    this.usePatternWithTextSpan = false,
     this.customFlagWidget,
     this.flagAlignment = AlignmentOption.left,
     this.flagSpacing = 6,
     this.contryCodeSpacing = 6,
-    this.amountColorStyle,
     this.locale,
     this.formatterPattern,
+    this.amountColorStyle,
   });
 
   @override
   Widget build(BuildContext context) {
-    /// Format amount string
-    String formatted;
-    if (avoidCurrencyFormat) {
-      formatted = amount.toString();
-      if (!hideCurrencySymbol && currencyType.currencySymbol != null) {
-        formatted = "${currencyType.currencySymbol}$formatted";
-      }
-    } else {
-      formatted = currencyType.formatCurrency(
+    final Color valueColor = amountColorStyle != null
+        ? amountColorStyle!(amount)
+        : (amount > 0
+        ? Colors.green
+        : amount < 0
+        ? Colors.red
+        : Colors.grey);
+
+    final String symbol =
+    hideCurrencySymbol ? '' : (currencyType.currencySymbol ?? '');
+
+    // --- Custom Pattern ---
+    if (formatterPattern != null) {
+      final formatted = currencyType.formatCurrency(
         amount,
         withSymbol: !hideCurrencySymbol,
         customLocale: locale,
         customPattern: formatterPattern,
       );
-    }
 
-    /// Decide color for the amount
-    final Color valueColor = amountColorStyle != null
-        ? amountColorStyle!(amount)
-        : (amount > 0
-            ? Colors.green
-            : amount < 0
-                ? Colors.red
-                : Colors.grey);
+      if (usePatternWithTextSpan) {
+        //  split into integer + decimal  default
+        final parts = formatted.replaceAll(symbol, '').split('.');
+        final intPart = parts[0];
+        final decimalPart =
+        parts.length > 1 ? parts[1].padRight(2, '0') : '';
 
-    /// Build flag widget
-    Widget flagWidget = const SizedBox.shrink();
-    if (showFlag) {
-      if (customFlagWidget != null) {
-        flagWidget = customFlagWidget!;
+        final amountWidget = RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: '$symbol$intPart',
+                style: (amountTextStyle ??
+                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold))
+                    .copyWith(color: valueColor),
+              ),
+              if (decimalPart.isNotEmpty)
+                WidgetSpan(
+                  alignment: PlaceholderAlignment.aboveBaseline,
+                  baseline: TextBaseline.alphabetic,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 1.5),
+                    child: Text(
+                      decimalPart,
+                      style: TextStyle(
+                        fontSize: (amountTextStyle?.fontSize ?? 25) * 0.6,
+                        fontWeight: amountTextStyle?.fontWeight ?? FontWeight.w500,
+                        color: valueColor,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        );
+
+        return _buildRow(amountWidget);
       } else {
-        flagWidget = Text(
-          currencyType.flag ?? '',
-          style: const TextStyle(fontSize: 24),
+        // fallback → plain text
+        return _buildRow(
+          _buildText(formatted, valueColor),
         );
       }
     }
 
-    /// Currency code widget
+    // --- Default formatting ---
+    final intPart = amount.floor();
+    final decimalPart =
+    ((amount - intPart) * 100).round().toString().padLeft(2, '0');
+
+    final amountWidget = RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: '$symbol$intPart',
+            style: (amountTextStyle ??
+                const TextStyle(fontSize: 25, fontWeight: FontWeight.bold))
+                .copyWith(color: valueColor),
+          ),
+          WidgetSpan(
+            alignment: PlaceholderAlignment.aboveBaseline,
+            baseline: TextBaseline.alphabetic,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 1.5),
+              child: Text(
+                decimalPart,
+                style: TextStyle(
+                  fontSize: (amountTextStyle?.fontSize ?? 25) * 0.6,
+                  fontWeight: amountTextStyle?.fontWeight ?? FontWeight.w500,
+                  color: valueColor,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    return _buildRow(amountWidget);
+  }
+
+  /// Row wrap
+  Widget _buildRow(Widget amountWidget) {
+    Widget flagWidget = const SizedBox.shrink();
+    if (showFlag) {
+      flagWidget = customFlagWidget ??
+          Text(currencyType.flag ?? '', style: const TextStyle(fontSize: 24));
+    }
+
     final currencyCodeWidget = Text(
       currencyCodeText ?? (currencyType.currencyCode ?? ''),
       style: currencyCodeTextStyle ??
-          const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            color: Colors.black,
-          ),
+          const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
     );
 
-    /// Amount widget
-    final amountWidget = Text(
-      formatted,
-      style: amountTextStyle ??
-          TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: valueColor,
-          ),
-    );
-
-    /// Row containing currency code and amount
     final rightSide = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -158,20 +212,32 @@ class PriceText extends StatelessWidget {
       ],
     );
 
-    /// Final layout
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: flagAlignment == AlignmentOption.left
           ? [
-              if (showFlag) flagWidget,
-              if (showFlag) SizedBox(width: flagSpacing),
-              rightSide,
-            ]
+        if (showFlag) flagWidget,
+        if (showFlag) SizedBox(width: flagSpacing),
+        rightSide,
+      ]
           : [
-              rightSide,
-              if (showFlag) SizedBox(width: flagSpacing),
-              if (showFlag) flagWidget,
-            ],
+        rightSide,
+        if (showFlag) SizedBox(width: flagSpacing),
+        if (showFlag) flagWidget,
+      ],
+    );
+  }
+
+  /// fallback plain text
+  Widget _buildText(String text, Color valueColor) {
+    return Text(
+      text,
+      style: (amountTextStyle ??
+          const TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ))
+          .copyWith(color: valueColor),
     );
   }
 }
