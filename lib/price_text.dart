@@ -91,13 +91,13 @@ class PriceText extends StatelessWidget {
     final Color valueColor = amountColorStyle != null
         ? amountColorStyle!(amount)
         : (amount > 0
-        ? Colors.green
-        : amount < 0
-        ? Colors.red
-        : Colors.grey);
+            ? Colors.green
+            : amount < 0
+                ? Colors.red
+                : Colors.grey);
 
     final String symbol =
-    hideCurrencySymbol ? '' : (currencyType.currencySymbol ?? '');
+        hideCurrencySymbol ? '' : (currencyType.currencySymbol ?? '');
 
     // --- Custom Pattern ---
     if (formatterPattern != null) {
@@ -112,8 +112,7 @@ class PriceText extends StatelessWidget {
         //  split into integer + decimal  default
         final parts = formatted.replaceAll(symbol, '').split('.');
         final intPart = parts[0];
-        final decimalPart =
-        parts.length > 1 ? parts[1].padRight(2, '0') : '';
+        final decimalPart = parts.length > 1 ? parts[1].padRight(2, '0') : '';
 
         final amountWidget = RichText(
           text: TextSpan(
@@ -121,7 +120,8 @@ class PriceText extends StatelessWidget {
               TextSpan(
                 text: '$symbol$intPart',
                 style: (amountTextStyle ??
-                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold))
+                        const TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold))
                     .copyWith(color: valueColor),
               ),
               if (decimalPart.isNotEmpty)
@@ -134,7 +134,8 @@ class PriceText extends StatelessWidget {
                       decimalPart,
                       style: TextStyle(
                         fontSize: (amountTextStyle?.fontSize ?? 25) * 0.6,
-                        fontWeight: amountTextStyle?.fontWeight ?? FontWeight.w500,
+                        fontWeight:
+                            amountTextStyle?.fontWeight ?? FontWeight.w500,
                         color: valueColor,
                       ),
                     ),
@@ -156,7 +157,7 @@ class PriceText extends StatelessWidget {
     // --- Default formatting ---
     final intPart = amount.floor();
     final decimalPart =
-    ((amount - intPart) * 100).round().toString().padLeft(2, '0');
+        ((amount - intPart) * 100).round().toString().padLeft(2, '0');
 
     final amountWidget = RichText(
       text: TextSpan(
@@ -164,7 +165,7 @@ class PriceText extends StatelessWidget {
           TextSpan(
             text: '$symbol$intPart',
             style: (amountTextStyle ??
-                const TextStyle(fontSize: 25, fontWeight: FontWeight.bold))
+                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold))
                 .copyWith(color: valueColor),
           ),
           WidgetSpan(
@@ -216,15 +217,15 @@ class PriceText extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: flagAlignment == AlignmentOption.left
           ? [
-        if (showFlag) flagWidget,
-        if (showFlag) SizedBox(width: flagSpacing),
-        rightSide,
-      ]
+              if (showFlag) flagWidget,
+              if (showFlag) SizedBox(width: flagSpacing),
+              rightSide,
+            ]
           : [
-        rightSide,
-        if (showFlag) SizedBox(width: flagSpacing),
-        if (showFlag) flagWidget,
-      ],
+              rightSide,
+              if (showFlag) SizedBox(width: flagSpacing),
+              if (showFlag) flagWidget,
+            ],
     );
   }
 
@@ -233,10 +234,10 @@ class PriceText extends StatelessWidget {
     return Text(
       text,
       style: (amountTextStyle ??
-          const TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ))
+              const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ))
           .copyWith(color: valueColor),
     );
   }

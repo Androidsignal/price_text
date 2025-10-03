@@ -41,7 +41,7 @@ class ExampleScreen extends StatelessWidget {
               currencyType:
                   CurrencyType.AUD, //for currency type to be displayed
               amount:
-                  2000.89,//for amount to be displayed on screen 0 value to show grey color
+                  2000.89, //for amount to be displayed on screen 0 value to show grey color
               showFlag: true, //to show flag of the country
               amountTextStyle: const TextStyle(
                 fontSize: 22,
@@ -50,7 +50,8 @@ class ExampleScreen extends StatelessWidget {
               showCurrencyCode: true, //to show currency code
               locale:
                   'en_AU', //locale for region specific formatting if you want to show
-              formatterPattern:  '#,##0.00', //custom pattern for formatting amount
+              formatterPattern:
+                  '#,##0.00', //custom pattern for formatting amount
               usePatternWithTextSpan: true,
               contryCodeSpacing: 10, //spacing between flag and currency code
               flagSpacing: 20, //spacing between currency code and amount

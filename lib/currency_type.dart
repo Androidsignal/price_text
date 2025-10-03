@@ -23,16 +23,16 @@ class CurrencyType {
   /// CurrencyType.USD.formatCurrency(1234.56, withSymbol: false); // 1,234.56
   /// ```
   String formatCurrency(
-      num amount, {
-        bool withSymbol = true,
-        bool withGrouping = true,
-        int decimalDigits = 2,
-        String? customSymbol,
-        String? customLocale,
-        String? customPattern,
-        String? decimalSeparator,
-        String? groupingSeparator,
-      }) {
+    num amount, {
+    bool withSymbol = true,
+    bool withGrouping = true,
+    int decimalDigits = 2,
+    String? customSymbol,
+    String? customLocale,
+    String? customPattern,
+    String? decimalSeparator,
+    String? groupingSeparator,
+  }) {
     final localeMap = {
       "INR": "en_IN",
       "USD": "en_US",
@@ -101,7 +101,6 @@ class CurrencyType {
     currencySymbol: "\$",
     flag: "🇺🇸",
   );
-
 
   /// Euro
   static const EUR = CurrencyType(
