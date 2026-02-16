@@ -1,5 +1,5 @@
 
-[![dashstack_poster](https://github.com/user-attachments/assets/4711330c-d9f5-42f2-ba92-59bdecb384a5)](https://dashstack.notion.site/Ravi-Vithani-e65c362e335d45ef993225687e4aacb8?pvs=143)
+[![dashstack_poster](https://github.com/user-attachments/assets/4711330c-d9f5-42f2-ba92-59bdecb384a5)](https://www.dashstack.tech/)
 
 #   Price Text – Flutter  
 A customizable **Price Text** for Flutter apps.  
