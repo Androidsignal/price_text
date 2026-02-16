@@ -4,6 +4,9 @@ All notable changes to the **price_text** package will be documented in this fil
 This project follows [Semantic Versioning](https://semver.org/).
 
 ---
+## [0.0.8] - (2026-Feb-16)
+- Updated documentation  for `PriceText`.
+
 ## [0.0.7] - (2025-Oct-03)
 - **New Feature:** Introduced `usePatternWithTextSpan` parameter in `PriceText`.
   - Allows you to render formatted currency amounts using `TextSpan` with custom pattern support.
